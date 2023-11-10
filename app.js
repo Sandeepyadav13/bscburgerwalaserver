@@ -45,7 +45,7 @@ app.use(cors({
 app.use(passport.authenticate("session"));
 app.use(passport.initialize());
 app.use(passport.session());              //cell passport in app.js 
-app.enable("trust proxy")
+app.enable("trust proxy") ; 
 
 
 //cell passport--config ke bas our router ke pahle used.
