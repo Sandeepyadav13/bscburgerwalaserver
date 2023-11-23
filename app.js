@@ -16,7 +16,8 @@ dotenv.config({
 });
 
 //using middleware 
-app.use(session({
+app.use(
+        session({
         secret:process.env.SESSION_SECRET,
         resave:false,        //create session
         saveUninitialized:false,

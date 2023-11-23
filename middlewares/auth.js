@@ -1,15 +1,15 @@
-import Errorhandler from "../utils/ErrorHandler.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
 
-export const isauthenticated =(req,res,next)=>{
+export const isAuthenticated =(req,res,next)=>{
 const token =req.cookies["connect.sid"];  
 if(!token) {
-    return next (new Errorhandler("Not Logged In",401));
+    return next (new ErrorHandler("Not Logged In",401));
 }
 next();
 };
 export const authorizeAdmin =(req,res,next)=>{
-if(req.user.role!=="admin") {
-    return next (new Errorhandler("Only Admin allowed",405));
+if(req.user.role !=="admin") {
+    return next (new ErrorHandler("Only Admin allowed",405));
 }
 next();
-};
+}; 

@@ -1,6 +1,6 @@
 import { asyncError } from "../middlewares/errorMiddlewares.js";
 import { Order } from "../models/Order.js"
-import Errorhandler from "../utils/ErrorHandler.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
 import {instance} from "../server.js"
 import crypto from "crypto"
 import {Payment} from "../models/Payment.js"
@@ -90,7 +90,7 @@ export const paymentVarification=asyncError(async(req,res,next)=>{
 
 
     }else{
-        return next (new Errorhandler("Payment failed ",400));
+        return next (new ErrorHandler("Payment failed ",400));
     }
 });
 
@@ -127,13 +127,13 @@ export const getAdminOrders = asyncError(async (req, res, next) => {
 
 export const processOrder = asyncError(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
-    if (!order) return next(new Errorhandler("Invalid Order id ", 404));
+    if (!order) return next(new ErrorHandler("Invalid Order id ", 404));
     if (order.orderStatus === "preparing") order.orderStatus = "shippid";
     else if (order.orderStatus === "shippid") {
         order.orderStatus = "Delivered";
         order.deliveredAt = new Date(Date.now());
     }
-    else if (order.orderStatus === "Delivered") return next(new Errorhandler("food already  deliverded", 400));
+    else if (order.orderStatus === "Delivered") return next(new ErrorHandler("food already  deliverded", 400));
     order.save();
     res.status(200), json({
         success: true,
